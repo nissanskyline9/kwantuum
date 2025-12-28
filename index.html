@@ -1,0 +1,521 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Квантум | Включаем свет в законах темноты</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --dark-blue: #0A2463;
+            --yellow: #FFE066;
+            --green: #4CAF50;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --gray: #666666;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка */
+        .header {
+            background-color: var(--dark-blue);
+            padding: 30px 0;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background-color: var(--yellow);
+            border-radius: 50%;
+            opacity: 0.2;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .tg-button {
+            display: inline-block;
+            background-color: var(--yellow);
+            color: var(--dark-blue);
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--yellow);
+        }
+
+        .tg-button:hover {
+            background-color: transparent;
+            color: var(--yellow);
+        }
+
+        /* Основной контент */
+        .main {
+            padding: 50px 0;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .intro h2 {
+            color: var(--dark-blue);
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Карточки лекций */
+        .lectures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .lecture-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .lecture-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-image {
+            height: 200px;
+            background-color: var(--dark-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 60px;
+            position: relative;
+        }
+
+        .card-image::before {
+            content: attr(data-lecture-num);
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background-color: rgba(0,0,0,0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-content h3 {
+            color: var(--dark-blue);
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            color: var(--green);
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-description {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .read-button {
+            display: inline-block;
+            background-color: var(--dark-blue);
+            color: var(--white);
+            text-decoration: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--dark-blue);
+        }
+
+        .read-button:hover {
+            background-color: transparent;
+            color: var(--dark-blue);
+        }
+
+        /* Блок с дополнительными разделами */
+        .extra-sections {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid var(--yellow);
+        }
+
+        .extra-sections h2 {
+            text-align: center;
+            color: var(--dark-blue);
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+
+        .extra-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .extra-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .extra-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .extra-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: var(--dark-blue);
+        }
+
+        .extra-card h3 {
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+        }
+
+        .extra-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Подвал */
+        .footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .lectures-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .extra-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 36px;
+            }
+            
+            .tagline {
+                font-size: 18px;
+            }
+            
+            .intro h2 {
+                font-size: 26px;
+            }
+            
+            .card-image {
+                height: 180px;
+                font-size: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" style="background: #0A2463; padding: 22px 0;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div style="display: flex; align-items: center; gap: 30px;">
+            
+            <!-- Логотип (обновлённая ссылка) -->
+            <img src="https://www.dropbox.com/scl/fi/h97zybx2ixl89xg9912et/foto1.png?rlkey=y3yqfzi8pgrz1aotx4mhoextu&st=dwijpa3g&dl=1" 
+                 alt="Лого ВТЖТ" 
+                 style="height: 70px; width: auto;">
+            
+            <!-- Разделитель -->
+            <div style="width: 2px; height: 50px; background: rgba(255, 224, 102, 0.5);"></div>
+            
+            <!-- Текст -->
+            <div style="color: white; flex: 1;">
+                <div style="font-size: 22px; font-weight: 800; line-height: 1.2; text-align: center;">
+                    <span style="color: #FFE066;">КВАНТУМ</span> - Луч света в 
+                </div>
+                <div style="font-size: 14px; opacity: 0.9; margin-top: 5px; text-align: center; line-height: 1.4;">
+                    Изучение курса физики в среднем профессиональном 
+                    образовании на спациальностях железнодорожных
+                     отраслях
+                </div>
+                <div style="font-size: 16px; font-weight: 600; margin-top: 3px; text-align: center; color: #FFE066;">
+                    ВТЖТ филиал РГУПС
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</header>
+
+
+<div style="margin: 30px 0 40px 0; text-align: center; background: #f8f9fa; padding: 25px; border-radius: 12px; border-left: 4px solid #0A2463;">
+    <h3 style="color: #0A2463; margin-bottom: 15px; font-size: 18px;">
+        🎬 Введение
+    </h3>
+    <div style="max-width: 800px; margin: 0 auto;">
+        <video 
+            controls 
+            style="width: 100%; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);"
+        >
+            <source src="https://www.dropbox.com/scl/fi/ilm04vg9ujw8t2lhiu32j/video22.mp4?rlkey=0bi4eovkuhzmxournjufjxlhy&st=3l374xlk&dl=1" type="video/mp4">
+            Ваш браузер не поддерживает видео. Попробуйте обновить его или <a href="https://www.dropbox.com/scl/fi/ilm04vg9ujw8t2lhiu32j/video22.mp4?rlkey=0bi4eovkuhzmxournjufjxlhy&st=3l374xlk&dl=1">скачайте видео</a>.
+        </video>
+        <div style="margin-top: 15px; display: flex; justify-content: space-between; font-size: 14px; color: #666;">
+            <span>📁 Название: Физика и AI </span>
+            
+        </div>
+        <p style="margin-top: 10px; font-size: 14px; color: #555;">
+            <strong>Совет:</strong> Нажмите <span style="background: #0A2463; color: white; padding: 2px 8px; border-radius: 4px;">▶</span> для начала просмотра
+        </p>
+    </div>
+</div>
+
+    <!-- Основной контент -->
+    <main class="main">
+        <div class="container">
+            <div class="intro">
+                <h2>Раздел Электродинамика</h2>
+                <p>Изучаем фундаментальные законы электричества и магнетизма, которые управляют нашей вселенной</p>
+            </div>
+
+            <!-- Карточки лекций -->
+            <div class="lectures-grid">
+                <!-- Карточка 1 -->
+                <a href="lecture1.html" class="lecture-card">
+                    <div class="card-image" data-lecture-num="1">⚡</div>
+                    <div class="card-content">
+                        <h3>ТАЙНА ЭЛЕКТРИЧЕСКОГО ЗАРЯДА</h3>
+                        <div class="card-subtitle">От Кулона до суперпозиции</div>
+                        <p class="card-description">Электродинамика -- раздел физики, который изучает электромагнитное взаимодействие заряженных частиц. Электростатика -- раздел электродинамики, который изучает взаимодействие неподвижных электрических зарядов.</p>
+                        <div class="read-button">Изучить лекцию →</div>
+                    </div>
+                </a>
+
+                <!-- Карточка 2 -->
+                <a href="lecture2.html" class="lecture-card">
+                    <div class="card-image" data-lecture-num="2">🧲</div>
+                    <div class="card-content">
+                        <h3>СИЛА НЕВИДИМОГО ПОЛЯ</h3>
+                        <div class="card-subtitle">Как напряжённость правит зарядами</div>
+                        <p class="card-description">Взаимодействие между заряженными телами осуществляется посредством электрического поля. Каждое из этих тел создает свое поле, которое действует на другое тело.</p>
+                        <div class="read-button">Изучить лекцию →</div>
+                    </div>
+                </a>
+
+                <!-- Карточка 3 -->
+                <a href="lecture3.html" class="lecture-card">
+                    <div class="card-image" data-lecture-num="3">📈</div>
+                    <div class="card-content">
+                        <h3>ЭНЕРГИЯ ПОКОЯ</h3>
+                        <div class="card-subtitle">Потенциал, напряжение и тайна эквипотенциальных поверхностей</div>
+                        <p class="card-description">В механике взаимное действие тел друг на друга характеризуют силой или потенциальной энергией. Электростатическое поле так же характеризуют двумя величинами.</p>
+                        <div class="read-button">Изучить лекцию →</div>
+                    </div>
+                </a>
+
+                <!-- Карточка 4 -->
+                <a href="lecture4.html" class="lecture-card">
+                    <div class="card-image" data-lecture-num="4">⚛️</div>
+                    <div class="card-content">
+                        <h3>МИР ЭЛЕКТРИЧЕСКИХ ПУТЕЙ</h3>
+                        <div class="card-subtitle">Проводники, диэлектрики и волшебство конденсаторов</div>
+                        <p class="card-description">Все вещества (по уровню подвижности заряженных частиц) делятся на три группы: проводники, диэлектрики и полупроводники. Узнаем, как они ведут себя в электрическом поле.</p>
+                        <div class="read-button">Изучить лекцию →</div>
+                    </div>
+                </a>
+
+                <!-- Карточка 5 -->
+                <a href="lecture5.html" class="lecture-card">
+                    <div class="card-image" data-lecture-num="5">🔋</div>
+                    <div class="card-content">
+                        <h3>ЭНЕРГИЯ В ЗАПАСЕ</h3>
+                        <div class="card-subtitle">Как конденсаторы собираются в батареи и хранят силу</div>
+                        <p class="card-description">Для получения заданного значения электроемкости конденсаторы соединяют в батареи. Узнаем о параллельном и последовательном соединении, а также об энергии заряженного конденсатора.</p>
+                        <div class="read-button">Изучить лекцию →</div>
+                    </div>
+                </a>
+
+                <!-- Карточка 6 -->
+                <a href="lecture6.html" class="lecture-card">
+                    <div class="card-image" data-lecture-num="6">⚡</div>
+                    <div class="card-content">
+                        <h3>ДОРОГА ТОКА</h3>
+                        <div class="card-subtitle">Закон Ома и секреты сопротивления</div>
+                        <p class="card-description">Условия, необходимые для возникновения и поддержания электрического тока. Сила тока и плотность тока. Закон Ома для участка цепи без ЭДС.</p>
+                        <div class="read-button">Изучить лекцию →</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Дополнительные разделы -->
+            <div class="extra-sections">
+                <h2>Дополнительные материалы</h2>
+                <div class="extra-grid">
+                    <a href="animations.html" class="extra-card">
+                        <div class="extra-icon">🎬</div>
+                        <h3>Анимации и видео</h3>
+                        <p>Наглядные визуализации физических процессов и явлений</p>
+                    </a>
+                    
+                    <!-- Новый раздел с подкастами -->
+                    <a href="podcasts.html" class="extra-card">
+                        <div class="extra-icon">🎧</div>
+                        <h3>Подкасты по электротехнике</h3>
+                        <p>Аудиолекции о применении электричества на железнодорожном транспорте</p>
+                    </a>
+                    
+                    <!-- Блок с двумя ботами -->
+                    <div class="extra-card">
+                        <div class="extra-icon">🤖</div>
+                        <h3>Полезные боты</h3>
+                        <div style="margin-top: 20px;">
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                                <div style="font-weight: 600; color: var(--dark-blue); margin-bottom: 5px;">@medtest08_bot</div>
+                                <div style="font-size: 14px; color: var(--gray); margin-bottom: 10px;">Тест на оказание первой медицинской помощи</div>
+                                <a href="https://t.me/medtest08_bot" target="_blank" style="display: inline-block; background: var(--dark-blue); color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 14px;">Перейти к боту</a>
+                            </div>
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                                <div style="font-weight: 600; color: var(--dark-blue); margin-bottom: 5px;">@fizikapomojetbot</div>
+                                <div style="font-size: 14px; color: var(--gray); margin-bottom: 10px;">Нейросеть для обсуждения тем по физике и решения задач</div>
+                                <a href="https://t.me/fizikapomojetbot" target="_blank" style="display: inline-block; background: var(--dark-blue); color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 14px;">Перейти к боту</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<!-- БЛОК ВИКТОРИНЫ -->
+<section class="quiz-section" style="margin: 60px 0 40px 0; padding: 40px 0; background: linear-gradient(135deg, #0A2463 0%, #1a3a8f 100%); border-radius: 15px; position: relative;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2;">
+        
+        <!-- Заголовок -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h2 style="color: #FFE066; font-size: 32px; margin-bottom: 15px;">⚡ Проверь свои знания</h2>
+            <p style="color: white; font-size: 18px; max-width: 700px; margin: 0 auto; opacity: 0.9;">
+                Пройди тест по законам постоянного тока и закрепи изученный материал
+            </p>
+        </div>
+
+        <!-- Контейнер для виджета -->
+        <div style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); margin: 0 auto 25px auto; max-width: 900px;">
+            <div id="otp_wgt_k4i5obhxuhc4e" style="width: 100%; height: 500px; min-height: 500px;"></div>
+        </div>
+
+        <!-- Пояснение -->
+        <div style="text-align: center; color: rgba(255,255,255,0.8); font-size: 14px; max-width: 800px; margin: 0 auto;">
+            <p>Тест содержит 15 вопросов по теме "Законы постоянного тока". На выполнение даётся 10 минут.</p>
+        </div>
+
+    </div>
+
+    <!-- Декоративный элемент -->
+    <div style="position: absolute; top: -20px; right: -20px; width: 150px; height: 150px; background: rgba(255, 224, 102, 0.1); border-radius: 50%; z-index: 1;"></div>
+    <div style="position: absolute; bottom: -30px; left: -30px; width: 200px; height: 200px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; z-index: 1;"></div>
+</section>
+
+<!-- ИСПРАВЛЕННЫЙ СКРИПТ ВИДЖЕТА -->
+<script type="text/javascript">
+    var otp_wjs_dt = (new Date).getTime();
+    (function (w, d, n, s, rp) {
+        w[n] = w[n] || [];
+        rp = {};
+        w[n].push(function () {
+            otp_render_widget(d.getElementById("otp_wgt_k4i5obhxuhc4e"), 'onlinetestpad.com', 'k4i5obhxuhc4e', rp);
+        }); 
+        s = d.createElement("script");
+        s.type = "text/javascript";
+        s.src = "https://onlinetestpad.com/js/widget.js?" + otp_wjs_dt;
+        s.async = true;
+        d.getElementsByTagName("head")[0].appendChild(s);
+    })(window, document, "otp_widget_callbacks");
+</script>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 Квантум. Образовательный проект по физике.</p>
+            <p>Материалы предназначены для образовательных целей.</p>
+        </div>
+    </footer>
+</body>
+</html>

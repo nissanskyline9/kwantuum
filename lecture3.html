@@ -1,0 +1,806 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Энергия покоя | Квантум</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --dark-blue: #0A2463;
+            --yellow: #FFE066;
+            --green: #4CAF50;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --gray: #666666;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка */
+        .header {
+            background-color: var(--dark-blue);
+            padding: 30px 0;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background-color: var(--yellow);
+            border-radius: 50%;
+            opacity: 0.2;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .tg-button {
+            display: inline-block;
+            background-color: var(--yellow);
+            color: var(--dark-blue);
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--yellow);
+        }
+
+        .tg-button:hover {
+            background-color: transparent;
+            color: var(--yellow);
+        }
+
+        /* Кнопка назад */
+        .back-container {
+            margin: 30px 0;
+        }
+
+        .back-button {
+            display: inline-block;
+            background-color: var(--gray);
+            color: var(--white);
+            text-decoration: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--gray);
+        }
+
+        .back-button:hover {
+            background-color: var(--dark-blue);
+            border-color: var(--dark-blue);
+        }
+
+        /* Контент лекции */
+        .lecture-content {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 30px 0 50px;
+        }
+
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--yellow);
+        }
+
+        .lecture-header h1 {
+            color: var(--dark-blue);
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .lecture-subtitle {
+            color: var(--green);
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .lecture-image {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 100px;
+        }
+
+        .lecture-text h2 {
+            color: var(--dark-blue);
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .lecture-text h3 {
+            color: var(--dark-blue);
+            margin: 25px 0 15px;
+        }
+
+        .lecture-text p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .lecture-text ol, .lecture-text ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .lecture-text li {
+            margin-bottom: 10px;
+        }
+
+        .formula-box {
+            background-color: rgba(255, 224, 102, 0.2);
+            border-left: 4px solid var(--yellow);
+            padding: 20px;
+            margin: 25px 0;
+            font-family: monospace;
+            font-size: 18px;
+            text-align: center;
+            border-radius: 0 5px 5px 0;
+        }
+
+        /* Стили для задач */
+        .practice-tasks {
+            margin: 60px 0;
+        }
+
+        .tasks-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .tasks-header {
+            background: linear-gradient(135deg, #0A2463 0%, #1a3a8f 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .tasks-header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .tasks-content {
+            padding: 30px;
+        }
+
+        .task-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 4px solid #0A2463;
+        }
+
+        .task-title {
+            color: #0A2463;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .task-number {
+            background: #0A2463;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .task-text {
+            font-size: 16px;
+            line-height: 1.7;
+            margin: 10px 0;
+        }
+
+        .task-data {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 17px;
+            border: 1px dashed #0A2463;
+        }
+
+        .input-section {
+            margin: 30px 0;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #0A2463;
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: #0A2463;
+            box-shadow: 0 0 0 3px rgba(10, 36, 99, 0.1);
+        }
+
+        .unit {
+            margin-left: 10px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-check {
+            background: #0A2463;
+            color: white;
+        }
+
+        .btn-check:hover {
+            background: #1a3a8f;
+            transform: translateY(-2px);
+        }
+
+        .btn-hint {
+            background: #f8f9fa;
+            color: #0A2463;
+            border: 2px solid #0A2463;
+        }
+
+        .btn-hint:hover {
+            background: #e9ecef;
+        }
+
+        .feedback {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .feedback.correct {
+            background: #e8f5e9;
+            border: 2px solid #4CAF50;
+            color: #2e7d32;
+        }
+
+        .feedback.incorrect {
+            background: #ffebee;
+            border: 2px solid #f44336;
+            color: #c62828;
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .hint-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .task-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .task-btn {
+            padding: 10px 20px;
+            background: #e9ecef;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .task-btn:hover {
+            background: #dee2e6;
+        }
+
+        .task-btn.active {
+            background: #0A2463;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Навигация между лекциями */
+        .lecture-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background-color: var(--light-gray);
+            color: var(--dark-blue);
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--dark-blue);
+        }
+
+        .nav-button:hover {
+            background-color: var(--dark-blue);
+            color: var(--white);
+        }
+
+        /* Подвал */
+        .footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 36px;
+            }
+            
+            .tagline {
+                font-size: 18px;
+            }
+            
+            .lecture-content {
+                padding: 25px;
+            }
+            
+            .lecture-header h1 {
+                font-size: 28px;
+            }
+            
+            .lecture-image {
+                font-size: 70px;
+            }
+            
+            .lecture-navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .tasks-container {
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Квантум</h1>
+            <p class="tagline">Включаем свет в законах темноты</p>
+            <a href="https://t.me/fizikapomojetbot" target="_blank" class="tg-button">📚 Бот-помощник по физике</a>
+        </div>
+    </header>
+
+    <!-- Кнопка назад -->
+    <div class="container back-container">
+        <a href="index.html" class="back-button">← Назад ко всем лекциям</a>
+    </div>
+
+    <!-- Контент лекции -->
+    <div class="container">
+        <div class="lecture-content">
+            <div class="lecture-header">
+                <h1>ЭНЕРГИЯ ПОКОЯ</h1>
+                <div class="lecture-subtitle">Потенциал, напряжение и тайна эквипотенциальных поверхностей</div>
+            </div>
+
+            <div class="lecture-image">
+                📈
+            </div>
+
+            <div class="lecture-text">
+                <h2>Работа сил электростатического поля. Потенциал.</h2>
+                
+                <!-- ВИДЕО ДЛЯ ЛЕКЦИИ 3 -->
+                <div style="margin: 30px 0 40px 0; text-align: center; background: #f8f9fa; padding: 25px; border-radius: 12px; border-left: 4px solid #0A2463;">
+                    <h3 style="color: #0A2463; margin-bottom: 15px; font-size: 18px;">
+                        Сводка
+                    </h3>
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <video 
+                            controls 
+                            style="width: 100%; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);"
+                        >
+                            <source src="https://www.dropbox.com/scl/fi/brhb5ot0mj7ce7h1if2ne/video18.mp4?rlkey=purrvbdj65odd4ita7xavn42w&st=tsujolr8&dl=1" type="video/mp4">
+                            Ваш браузер не поддерживает видео. Попробуйте обновить его или <a href="https://www.dropbox.com/scl/fi/brhb5ot0mj7ce7h1if2ne/video18.mp4?rlkey=purrvbdj65odd4ita7xavn42w&st=tsujolr8&dl=1">скачайте видео</a>.
+                        </video>
+                        <div style="margin-top: 15px; display: flex; justify-content: space-between; font-size: 14px; color: #666;">
+                            <span>📁 Название: Потенциал</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <p>В механике взаимное действие тел друг на друга характеризуют силой или потенциальной энергией. Электростатическое поле, осуществляющее взаимодействие между зарядами, так же характеризуют двумя величинами. Первая величина -- напряженность поля -- это силовая характеристика. Теперь введем вторую величину -- энергетическую характеристику -- потенциал.</p>
+                
+                <p>Электрическое поле, созданное покоящимися электрическими зарядами, называют электростатическим.</p>
+                
+                <p>Работа сил электростатического поля при перемещении заряженной частицы из одной точки в другую не зависит от формы траектории, а зависит лишь от начального и конечного положения частицы. Работа электростатического поля при перемещении заряда по замкнутому контуру равна нулю.</p>
+                
+                <p>То есть, электростатическое поле потенциально!</p>
+                
+                <div class="formula-box">
+                    <p>A = Ep₁ - Ep₂</p>
+                </div>
+                
+                <p>Работа электростатической силы равна разности потенциальной энергии заряженной частицы в ее начальном и конечном положениях.</p>
+                
+                <p><strong>Потенциалом электростатического поля</strong> называется отношение потенциальной энергии заряда в поле к этому заряду.</p>
+                
+                <div class="formula-box">
+                    <p>φ = Ep/q</p>
+                    <p>[φ] = [В] (Вольт)</p>
+                </div>
+                
+                <h3>Разность потенциалов.</h3>
+                <p>Из курса механики мы знаем, что физический смысл имеет не сама потенциальная энергия, а ее изменение: именно оно связано с работой, совершенной системой.</p>
+                
+                <p>Поэтому физический смысл имеет не сам потенциал в точке, а разность потенциалов между двумя точками: она связана с работой поля по перемещению заряда из одной точки в другую.</p>
+                
+                <p><strong>Разность потенциалов</strong> между точками 1 и 2 равна отношению работы поля по перемещению заряда из точки 1 в точку 2 к значению этого заряда. Разность потенциалов так же называют напряжением.</p>
+                
+                <div class="formula-box">
+                    <p>U = φ₁ - φ₂ = A/q</p>
+                    <p>[U] = [Дж/Кл] = [В]</p>
+                </div>
+                
+                <h3>Эквипотенциальные поверхности</h3>
+                <p>Эквипотенциальные поверхности - это поверхности, во всех точках которой потенциал имеет одно и тоже значение.</p>
+                
+                <h3>Связь между разностью потенциалов и напряженностью.</h3>
+                <p>Пусть положительный пробный заряд перемещается в однородном электрическом поле с напряженностью Е (с вектором) в направлении линий напряженности на расстояние d.</p>
+                
+                <p>Со стороны поля на заряд действует сила F = q E, направленная вдоль перемещения, поэтому при перемещении на расстояние d поле совершает работу:</p>
+                
+                <div class="formula-box">
+                    <p>A = F·d = q·E·d</p>
+                </div>
+                
+                <p>Разность потенциалов связана с работой соотношением:</p>
+                
+                <div class="formula-box">
+                    <p>U = φ₁ - φ₂ = A/q = (q·E·d)/q = E·d</p>
+                    <p>U = E·d</p>
+                </div>
+                
+                <p><strong>Вывод:</strong> напряженность электрического поля направлена в сторону убывания потенциала.</p>
+                
+                <section class="profession-block" style="margin: 60px 0; padding: 30px; background: linear-gradient(to right, #0A2463, #1a3a8f); border-radius: 12px; color: white; border-left: 5px solid #FFE066;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="font-size: 32px; margin-right: 15px;">📈</div>
+                        <h2 style="margin: 0; color: #FFE066; font-size: 22px;">
+                            Знания в профессии железнодорожника
+                        </h2>
+                    </div>
+                    <p style="margin: 0; line-height: 1.6; font-size: 16px;">
+                        Работа с разностью потенциалов и напряжением -- ежедневная реальность для 
+                        <strong>электромеханика устройств СЦБ</strong> (сигнализации, централизации, блокировки). 
+                        Он обслуживает системы автоблокировки, работающие под напряжением до 10 киловольт, где точное 
+                        измерение и контроль потенциала критически важны для безопасности движения. <strong>Монтёр пути</strong> 
+                        также должен знать эти основы, чтобы проверять отсутствие опасных разностей потенциалов на рельсах, 
+                        что особенно важно при работах вблизи контактной сети.
+                    </p>
+                </section>
+            </div>
+        </div>
+
+        <!-- Практические задачи -->
+        <div class="practice-tasks">
+            <div class="tasks-container">
+                <header class="tasks-header">
+                    <h1>⚡ Практические задачи</h1>
+                    <p>Работа электрического поля и разность потенциалов</p>
+                </header>
+
+                <div class="tasks-content">
+                    <!-- Выбор задачи -->
+                    <div class="task-selector">
+                        <button class="task-btn active" onclick="showTask(1)">Задача 1</button>
+                        <button class="task-btn" onclick="showTask(2)">Задача 2</button>
+                        <button class="task-btn" onclick="showTask(3)">Задача 3</button>
+                    </div>
+
+                    <!-- Задача 1 -->
+                    <div class="task-section" id="task1">
+                        <div class="task-title">
+                            <div class="task-number">1</div>
+                            <span>Нахождение разности потенциалов</span>
+                        </div>
+                        
+                        <div class="task-text">
+                            При перемещении заряда совершена определённая работа.
+                        </div>
+       <div class="task-data">
+                            <div>q = 3 Кл</div>
+                            <div>A = 15 Дж</div>
+                        </div>
+                        
+                        <div class="task-text">
+                            <strong>Вопрос:</strong> Найдите разность потенциалов между начальной и конечной точками.
+                        </div>
+                    </div>
+
+                    <!-- Задача 2 -->
+                    <div class="task-section" id="task2" style="display: none;">
+                        <div class="task-title">
+                            <div class="task-number">2</div>
+                            <span>Работа в однородном электрическом поле</span>
+                        </div>
+                        
+                        <div class="task-data">
+                            <div>E = 200 В/м</div>
+                            <div>d = 0.5 м</div>
+                            <div>q = 1 Кл (единичный заряд)</div>
+                        </div>
+                        
+                        <div class="task-text">
+                            <strong>Вопрос:</strong> Найдите работу поля при перемещении заряда на расстояние 0.5 м.
+                        </div>
+                    </div>
+
+                    <!-- Задача 3 -->
+                    <div class="task-section" id="task3" style="display: none;">
+                        <div class="task-title">
+                            <div class="task-number">3</div>
+                            <span>Работа поля при известной разности потенциалов</span>
+                        </div>
+                        
+                        <div class="task-data">
+                            <div>U = 10 В</div>
+                            <div>q = 2 Кл</div>
+                        </div>
+                        
+                        <div class="task-text">
+                            <strong>Вопрос:</strong> Какую работу совершит поле при перемещении заряда между этими точками?
+                        </div>
+                    </div>
+
+                    <!-- Ввод ответа -->
+                    <section class="input-section">
+                        <label class="input-label">Введите ваш ответ:</label>
+                        <div style="display: flex; align-items: center;">
+                            <input type="number" step="0.001" class="answer-input" id="userAnswer" placeholder="Числовое значение">
+                            <span class="unit" id="answerUnit">В</span>
+                        </div>
+
+                        <div class="buttons">
+                            <button class="btn btn-check" onclick="checkAnswer()">✅ Проверить</button>
+                            <button class="btn btn-hint" onclick="showHint()">💡 Подсказка</button>
+                        </div>
+                    </section>
+
+                    <!-- Подсказка -->
+                    <div class="hint-box" id="hintBox">
+                        <strong>Подсказка:</strong> Разность потенциалов: U = A / q
+                    </div>
+
+                    <!-- Результат проверки -->
+                    <div class="feedback" id="feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Навигация между лекциями -->
+        <div class="lecture-navigation">
+            <a href="lecture2.html" class="nav-button">← Предыдущая лекция</a>
+            <a href="index.html" class="nav-button">На главную</a>
+            <a href="lecture4.html" class="nav-button">Следующая лекция →</a>
+        </div>
+    </div>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 Квантум. Образовательный проект по физике.</p>
+            <p>Материалы предназначены для образовательных целей.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Данные задач
+        const tasks = [
+            { 
+                answer: 5, 
+                unit: "В", 
+                hint: "Разность потенциалов: U = A / q (работа, делённая на заряд)" 
+            },
+            { 
+                answer: 100, 
+                unit: "Дж", 
+                hint: "Работа в однородном поле: A = q × E × d" 
+            },
+            { 
+                answer: 20, 
+                unit: "Дж", 
+                hint: "Работа электрического поля: A = q × U" 
+            }
+        ];
+
+        let currentTask = 1;
+
+        // Переключение задач
+        function showTask(num) {
+            // Скрыть все задачи
+            document.getElementById('task1').style.display = 'none';
+            document.getElementById('task2').style.display = 'none';
+            document.getElementById('task3').style.display = 'none';
+            
+            // Показать нужную
+            document.getElementById('task' + num).style.display = 'block';
+            
+            // Обновить кнопки
+            document.querySelectorAll('.task-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === num - 1);
+            });
+            
+            // Обновить единицы и подсказку
+            document.getElementById('answerUnit').textContent = tasks[num - 1].unit;
+            document.getElementById('hintBox').innerHTML = `<strong>Подсказка:</strong> ${tasks[num - 1].hint}`;
+            document.getElementById('hintBox').style.display = 'none';
+            
+            currentTask = num;
+            
+            // Очистить поле и результат
+            document.getElementById('userAnswer').value = '';
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('userAnswer').focus();
+        }
+
+        // Проверка ответа
+        function checkAnswer() {
+            const input = document.getElementById('userAnswer');
+            const feedback = document.getElementById('feedback');
+            const value = parseFloat(input.value);
+            
+            if (!input.value) {
+                alert('Введите ответ!');
+                return;
+            }
+            
+            const task = tasks[currentTask - 1];
+            
+            // Допуск для проверки
+            const tolerance = 0.01;
+            const isCorrect = Math.abs(value - task.answer) < tolerance;
+            
+            if (isCorrect) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '<div class="feedback-title">✅ Верно!</div><p>Отличная работа!</p>';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `
+                    <div class="feedback-title">❌ Неверно</div>
+                    <p>Попробуйте ещё раз.</p>
+                    <button class="btn btn-hint" onclick="showHint()" style="margin-top: 10px;">
+                        💡 Показать подсказку
+                    </button>
+                `;
+            }
+            
+            feedback.style.display = 'block';
+            feedback.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Показать подсказку
+        function showHint() {
+            const hintBox = document.getElementById('hintBox');
+            hintBox.style.display = 'block';
+            hintBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Enter для проверки
+        document.getElementById('userAnswer').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkAnswer();
+        });
+
+        // При загрузке
+        window.onload = function() {
+            document.getElementById('userAnswer').focus();
+        };
+    </script>
+</body>
+</html>

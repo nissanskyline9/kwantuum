@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анимации по физике | Квантум</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        :root { --dark-blue: #0A2463; --yellow: #FFE066; --green: #4CAF50; --white: #FFFFFF; --light-gray: #F5F5F5; }
+        
+        body { background-color: var(--light-gray); color: #333; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        .header { background-color: var(--dark-blue); padding: 30px 0; text-align: center; color: var(--white); }
+        .logo { font-size: 48px; font-weight: 800; margin-bottom: 10px; }
+        .tagline { font-size: 20px; margin-bottom: 25px; opacity: 0.9; }
+        .tg-button { display: inline-block; background-color: var(--yellow); color: var(--dark-blue); 
+                    padding: 12px 30px; border-radius: 50px; font-weight: 600; text-decoration: none; 
+                    transition: all 0.3s ease; border: 2px solid var(--yellow);}
+        .tg-button:hover { background-color: transparent; color: var(--yellow); }
+        
+        .back-container { margin: 30px 0; }
+        .back-button { display: inline-block; background-color: #666; color: white; padding: 10px 25px; 
+                      border-radius: 5px; font-weight: 600; text-decoration: none; 
+                      transition: all 0.3s ease; border: 2px solid #666;}
+        .back-button:hover { background-color: var(--dark-blue); border-color: var(--dark-blue); }
+        
+        .page-content { background-color: var(--white); padding: 40px; border-radius: 10px; 
+                       box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin: 30px 0 50px; }
+        .page-header { text-align: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--yellow); }
+        .page-header h1 { color: var(--dark-blue); font-size: 36px; margin-bottom: 10px; }
+        .page-subtitle { color: var(--green); font-size: 20px; font-weight: 600; }
+        
+        .videos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin: 40px 0; }
+        .video-card { background: #f8f9fa; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+                     transition: transform 0.3s ease; }
+        .video-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .video-wrapper { position: relative; background: #000; height: 200px; cursor: pointer; }
+        video { width: 100%; height: 100%; object-fit: cover; }
+        .video-title { padding: 15px; text-align: center; }
+        .video-title h3 { color: var(--dark-blue); margin-bottom: 10px; }
+        .download-btn { display: inline-block; background: var(--green); color: white; padding: 8px 15px; 
+                       border-radius: 5px; text-decoration: none; margin-top: 10px; transition: background 0.3s ease; }
+        .download-btn:hover { background: #3d8b40; }
+        
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 40px; }
+        .page-btn { background: var(--dark-blue); color: white; border: none; padding: 10px 20px; 
+                   border-radius: 5px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; }
+        .page-btn:hover:not(:disabled) { background: var(--green); }
+        .page-btn:disabled { background: #ccc; cursor: not-allowed; }
+        
+        .footer { background-color: var(--dark-blue); color: var(--white); padding: 30px 0; text-align: center; }
+        
+        @media (max-width: 768px) {
+            .videos-grid { grid-template-columns: 1fr; }
+            .logo { font-size: 36px; }
+            .page-header h1 { font-size: 28px; }
+            .video-wrapper { height: 180px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Квантум</h1>
+            <p class="tagline">Включаем свет в законах темноты</p>
+            <a href="https://t.me/your_bot_link" target="_blank" class="tg-button">📚 Бот-помощник по физике</a>
+        </div>
+    </header>
+
+    <div class="container back-container">
+        <a href="index.html" class="back-button">← Назад на главную</a>
+    </div>
+
+    <div class="container">
+        <div class="page-content">
+            <div class="page-header">
+                <h1>Анимации по физике</h1>
+                <div class="page-subtitle">Наглядные визуализации физических процессов</div>
+            </div>
+
+            <p style="text-align: center; margin-bottom: 30px; font-size: 18px; color: #555;">Кликните на видео для воспроизведения. Всего доступно 15 анимаций.</p>
+
+            <!-- Сетка видео -->
+            <div class="videos-grid" id="videosContainer">
+                <!-- Видео загружаются через JavaScript -->
+            </div>
+
+            <!-- Пагинация -->
+            <div class="pagination">
+                <button class="page-btn" id="prevBtn" onclick="changePage(-1)" disabled>← Назад</button>
+                <span id="pageInfo" style="font-weight: 600;">Страница 1 из 3</span>
+                <button class="page-btn" id="nextBtn" onclick="changePage(1)">Вперед →</button>
+            </div>
+
+            <!-- Инструкция -->
+            <div style="background: rgba(255, 224, 102, 0.1); padding: 25px; border-radius: 10px; margin-top: 50px; border-left: 4px solid var(--yellow);">
+                <h3 style="color: var(--dark-blue); margin-bottom: 15px;">💡 Как смотреть видео?</h3>
+                <p style="margin-bottom: 8px;">1. <strong>Нажмите на видео</strong> для воспроизведения. Используйте стандартные элементы управления (пауза, громкость, полноэкранный режим).</p>
+                <p style="margin-bottom: 8px;">2. <strong>Если видео не загружается</strong> (например, из-за ограничений браузера), нажмите кнопку «📥 Скачать видео» под ним.</p>
+                <p style="margin-bottom: 8px;">3. Используйте кнопки <strong>«Назад»</strong> и <strong>«Вперед»</strong>, чтобы переключаться между страницами с анимациями.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 Квантум. Образовательный проект по физике.</p>
+            <p>Материалы предназначены для образовательных целей.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Массив со всеми 15 видео
+        const videos = [
+            { 
+                title: "Анимация 1: Опасное напряжение", 
+                url: "https://www.dropbox.com/scl/fi/qdo0jziiejhach2pbibil/video1.mp4?rlkey=w3t3ikz4ahfgfeosr5yyk5zt4&st=dey450xx&raw=1",
+                download: "https://www.dropbox.com/scl/fi/qdo0jziiejhach2pbibil/video1.mp4?rlkey=w3t3ikz4ahfgfeosr5yyk5zt4&st=dey450xx&dl=0"
+            },
+            { 
+                title: "Анимация 2: Электрическое поле", 
+                url: "https://www.dropbox.com/scl/fi/bo6m71gn6ffgoa0kn14dq/video2.mp4?rlkey=9ect7aymozqswhfb82qtajwes&st=h3y4nd5h&raw=1",
+                download: "https://www.dropbox.com/scl/fi/bo6m71gn6ffgoa0kn14dq/video2.mp4?rlkey=9ect7aymozqswhfb82qtajwes&st=h3y4nd5h&dl=0"
+            },
+            { 
+                title: "Анимация 3: Электричество и ЛЭП", 
+                url: "https://www.dropbox.com/scl/fi/bq21esimbw8qqhf4ie7ce/video3.mp4?rlkey=iojnjmjs40yyh6t96fzsdblvy&st=6agbkb43&raw=1",
+                download: "https://www.dropbox.com/scl/fi/bq21esimbw8qqhf4ie7ce/video3.mp4?rlkey=iojnjmjs40yyh6t96fzsdblvy&st=6agbkb43&dl=0"
+            },
+            { 
+                title: "Анимация 4: Гроза электричества", 
+                url: "https://www.dropbox.com/scl/fi/s8re926ncd7lpt3zuaxi4/video4.mp4?rlkey=bptv0uyr4tz9nsf9betaeh8vl&st=dg01ebp8&raw=1",
+                download: "https://www.dropbox.com/scl/fi/s8re926ncd7lpt3zuaxi4/video4.mp4?rlkey=bptv0uyr4tz9nsf9betaeh8vl&st=dg01ebp8&dl=0"
+            },
+            { 
+                title: "Анимация 5: Карманная молния", 
+                url: "https://www.dropbox.com/scl/fi/t525yklcr6qgn0o2bbl6x/video5.mp4?rlkey=ucwfltnaaj3zb9eqlsloliuxc&st=srh0i096&raw=1",
+                download: "https://www.dropbox.com/scl/fi/t525yklcr6qgn0o2bbl6x/video5.mp4?rlkey=ucwfltnaaj3zb9eqlsloliuxc&st=srh0i096&dl=0"
+            },
+            { 
+                title: "Анимация 6: Анатомия электричества", 
+                url: "https://www.dropbox.com/scl/fi/cyqhazh0cayzmqxfy2ned/video6.mp4?rlkey=sfnfeshikzsbrglb7bbkqacqw&st=z700be2f&raw=1",
+                download: "https://www.dropbox.com/scl/fi/cyqhazh0cayzmqxfy2ned/video6.mp4?rlkey=sfnfeshikzsbrglb7bbkqacqw&st=z700be2f&dl=0"
+            },
+            { 
+                title: "Анимация 7: Искусственная гроза", 
+                url: "https://www.dropbox.com/scl/fi/3nlueedwxw4d13wtp7joy/video7.mp4?rlkey=i40mzya0zkohy33q2q7lgg273&st=rttoubul&raw=1",
+                download: "https://www.dropbox.com/scl/fi/3nlueedwxw4d13wtp7joy/video7.mp4?rlkey=i40mzya0zkohy33q2q7lgg273&st=rttoubul&dl=0"
+            },
+            { 
+                title: "Анимация 8: Электрическая гроза", 
+                url: "https://www.dropbox.com/scl/fi/mgjo2cyyetylvb0kaa42h/video8.mp4?rlkey=7lfp7nyp9k2vvw82rufh6rji9&st=tjptoacd&raw=1",
+                download: "https://www.dropbox.com/scl/fi/mgjo2cyyetylvb0kaa42h/video8.mp4?rlkey=7lfp7nyp9k2vvw82rufh6rji9&st=tjptoacd&dl=0"
+            },
+            { 
+                title: "Анимация 9: Человек-электрошок", 
+                url: "https://www.dropbox.com/scl/fi/tq5k1lic51hkadc0k8lun/video9.mp4?rlkey=2l91m29by9ufhnnzzidl3gn0g&st=hu8bi1dm&raw=1",
+                download: "https://www.dropbox.com/scl/fi/tq5k1lic51hkadc0k8lun/video9.mp4?rlkey=2l91m29by9ufhnnzzidl3gn0g&st=hu8bi1dm&dl=0"
+            },
+            { 
+                title: "Анимация 10: Дыбы волос от расчески", 
+                url: "https://www.dropbox.com/scl/fi/vcpqmlqf7m45mvlgrjcrp/video10.mp4?rlkey=gvugd1ktsrtt0l6orebjtzcmk&st=wvrokmic&raw=1",
+                download: "https://www.dropbox.com/scl/fi/vcpqmlqf7m45mvlgrjcrp/video10.mp4?rlkey=gvugd1ktsrtt0l6orebjtzcmk&st=wvrokmic&dl=0"
+            },
+            { 
+                title: "Анимация 11: Электрическая анимация", 
+                url: "https://www.dropbox.com/scl/fi/dne1gie7kw6r1jrvfkl4h/video11.mp4?rlkey=de43n8291qpqjf4wnj5ur37js&st=159g3v4z&raw=1",
+                download: "https://www.dropbox.com/scl/fi/dne1gie7kw6r1jrvfkl4h/video11.mp4?rlkey=de43n8291qpqjf4wnj5ur37js&st=159g3v4z&dl=0"
+            },
+            { 
+                title: "Анимация 12: Исследование", 
+                url: "https://www.dropbox.com/scl/fi/jgl1kyjxvtmi07amcl8ra/video12.mp4?rlkey=walzzpfhsstinte4sa8psay4t&st=ptilmv2l&raw=1",
+                download: "https://www.dropbox.com/scl/fi/jgl1kyjxvtmi07amcl8ra/video12.mp4?rlkey=walzzpfhsstinte4sa8psay4t&st=ptilmv2l&dl=0"
+            },
+            { 
+                title: "Анимация 13: Электрокот", 
+                url: "https://www.dropbox.com/scl/fi/euvwuvf3nml1g11zc9td2/video13.mp4?rlkey=2nf6li3ljkfesf3sz1wamdbic&st=o8acw7yq&raw=1",
+                download: "https://www.dropbox.com/scl/fi/euvwuvf3nml1g11zc9td2/video13.mp4?rlkey=2nf6li3ljkfesf3sz1wamdbic&st=o8acw7yq&dl=0"
+            },
+            { 
+                title: "Анимация 14: Электрическое поле", 
+                url: "https://www.dropbox.com/scl/fi/jm62w2xlrss9wsxnoi6jq/video14.mp4?rlkey=a1hhkd8c8imn3z70t868l35t0&st=dh1auyct&raw=1",
+                download: "https://www.dropbox.com/scl/fi/jm62w2xlrss9wsxnoi6jq/video14.mp4?rlkey=a1hhkd8c8imn3z70t868l35t0&st=dh1auyct&dl=0"
+            },
+            { 
+                title: "Анимация 15: Электромагнитная индукция", 
+                url: "https://www.dropbox.com/scl/fi/s1tlkqg25j4r8pvtr2ckw/video15.mp4?rlkey=hdy4mkc2386oemcwd7ex9usi7&st=o3zbs5h4&raw=1",
+                download: "https://www.dropbox.com/scl/fi/s1tlkqg25j4r8pvtr2ckw/video15.mp4?rlkey=hdy4mkc2386oemcwd7ex9usi7&st=o3zbs5h4&dl=0"
+            }
+        ];
+
+        // Настройки пагинации
+        let currentPage = 1;
+        const videosPerPage = 6; // По 6 видео на странице
+
+        // Основная функция создания карточек
+        function createVideoCards() {
+            const container = document.getElementById('videosContainer');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            // Вычисляем, какие видео показывать
+            const startIndex = (currentPage - 1) * videosPerPage;
+            const endIndex = startIndex + videosPerPage;
+            const videosToShow = videos.slice(startIndex, endIndex);
+
+            videosToShow.forEach((video, index) => {
+                const videoNumber = startIndex + index + 1;
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                
+                card.innerHTML = `
+                    <div class="video-wrapper">
+                        <video controls 
+                               poster="https://via.placeholder.com/300x200/0A2463/FFFFFF?text=Видео+${videoNumber}" 
+                               preload="metadata">
+                            <source src="${video.url}" type="video/mp4">
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                    </div>
+                    <div class="video-title">
+                        <h3>${video.title}</h3>
+                        <a href="${video.download}" target="_blank" class="download-btn">📥 Скачать видео</a>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+
+            updatePagination();
+        }
+
+        // Обновление кнопок пагинации
+        function updatePagination() {
+            const totalPages = Math.ceil(videos.length / videosPerPage);
+            document.getElementById('pageInfo').textContent = `Страница ${currentPage} из ${totalPages}`;
+            
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages;
+        }
+
+        // Переключение страниц
+        function changePage(direction) {
+            const totalPages = Math.ceil(videos.length / videosPerPage);
+            const newPage = currentPage + direction;
+            
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                createVideoCards();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Запуск при загрузке страницы
+        document.addEventListener('DOMContentLoaded', createVideoCards);
+    </script>
+</body>
+</html>

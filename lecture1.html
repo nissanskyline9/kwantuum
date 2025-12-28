@@ -1,0 +1,885 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тайна электрического заряда | Квантум</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --dark-blue: #0A2463;
+            --yellow: #FFE066;
+            --green: #4CAF50;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --gray: #666666;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка */
+        .header {
+            background-color: var(--dark-blue);
+            padding: 30px 0;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background-color: var(--yellow);
+            border-radius: 50%;
+            opacity: 0.2;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .tg-button {
+            display: inline-block;
+            background-color: var(--yellow);
+            color: var(--dark-blue);
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--yellow);
+        }
+
+        .tg-button:hover {
+            background-color: transparent;
+            color: var(--yellow);
+        }
+
+        /* Кнопка назад */
+        .back-container {
+            margin: 30px 0;
+        }
+
+        .back-button {
+            display: inline-block;
+            background-color: var(--gray);
+            color: var(--white);
+            text-decoration: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--gray);
+        }
+
+        .back-button:hover {
+            background-color: var(--dark-blue);
+            border-color: var(--dark-blue);
+        }
+
+        /* Контент лекции */
+        .lecture-content {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 30px 0 50px;
+        }
+
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--yellow);
+        }
+
+        .lecture-header h1 {
+            color: var(--dark-blue);
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .lecture-subtitle {
+            color: var(--green);
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .lecture-image {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 100px;
+        }
+
+        .lecture-text h2 {
+            color: var(--dark-blue);
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .lecture-text h3 {
+            color: var(--dark-blue);
+            margin: 25px 0 15px;
+        }
+
+        .lecture-text p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .lecture-text ol, .lecture-text ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .lecture-text li {
+            margin-bottom: 10px;
+        }
+
+        .formula-box {
+            background-color: rgba(255, 224, 102, 0.2);
+            border-left: 4px solid var(--yellow);
+            padding: 20px;
+            margin: 25px 0;
+            font-family: monospace;
+            font-size: 18px;
+            text-align: center;
+            border-radius: 0 5px 5px 0;
+        }
+
+        /* Задачи */
+        .tasks-block {
+            background: linear-gradient(135deg, rgba(10, 36, 99, 0.05) 0%, rgba(76, 175, 80, 0.05) 100%);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            border-left: 5px solid var(--green);
+        }
+
+        .tasks-block h3 {
+            color: var(--dark-blue);
+            margin-bottom: 25px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .task {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed rgba(10, 36, 99, 0.1);
+        }
+
+        .task:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .task-question {
+            font-weight: 500;
+            line-height: 1.7;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+        }
+
+        .task-answer {
+            color: var(--green);
+            font-weight: 600;
+            background-color: rgba(76, 175, 80, 0.1);
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            border-left: 3px solid var(--green);
+        }
+
+        /* Навигация между лекциями */
+        .lecture-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background-color: var(--light-gray);
+            color: var(--dark-blue);
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--dark-blue);
+        }
+
+        .nav-button:hover {
+            background-color: var(--dark-blue);
+            color: var(--white);
+        }
+
+        /* Стили для блока задач */
+        .practice-tasks {
+            margin: 60px 0;
+        }
+
+        .tasks-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .tasks-header {
+            background: linear-gradient(135deg, #0A2463 0%, #1a3a8f 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .tasks-header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .tasks-content {
+            padding: 30px;
+        }
+
+        .task-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 4px solid #0A2463;
+        }
+
+        .task-title {
+            color: #0A2463;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .task-number {
+            background: #0A2463;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .task-text {
+            font-size: 16px;
+            line-height: 1.7;
+            margin: 10px 0;
+        }
+
+        .task-data {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 17px;
+            border: 1px dashed #0A2463;
+        }
+
+        .input-section {
+            margin: 30px 0;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #0A2463;
+        }
+
+        .answer-input {
+            flex: 1;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: #0A2463;
+            box-shadow: 0 0 0 3px rgba(10, 36, 99, 0.1);
+        }
+
+        .unit {
+            margin-left: 10px;
+            color: #666;
+            font-style: italic;
+            min-width: 60px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-check {
+            background: #0A2463;
+            color: white;
+        }
+
+        .btn-check:hover {
+            background: #1a3a8f;
+            transform: translateY(-2px);
+        }
+
+        .btn-hint {
+            background: #f8f9fa;
+            color: #0A2463;
+            border: 2px solid #0A2463;
+        }
+
+        .btn-hint:hover {
+            background: #e9ecef;
+        }
+
+        .feedback {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .feedback.correct {
+            background: #e8f5e9;
+            border: 2px solid #4CAF50;
+            color: #2e7d32;
+        }
+
+        .feedback.incorrect {
+            background: #ffebee;
+            border: 2px solid #f44336;
+            color: #c62828;
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .hint-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .task-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .task-btn {
+            padding: 10px 20px;
+            background: #e9ecef;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .task-btn:hover {
+            background: #dee2e6;
+        }
+
+        .task-btn.active {
+            background: #0A2463;
+            color: white;
+        }
+
+        .input-with-unit {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .formula {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            border-left: 3px solid #0A2463;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Подвал */
+        .footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 36px;
+            }
+            
+            .tagline {
+                font-size: 18px;
+            }
+            
+            .lecture-content {
+                padding: 25px;
+            }
+            
+            .lecture-header h1 {
+                font-size: 28px;
+            }
+            
+            .lecture-image {
+                font-size: 70px;
+            }
+            
+            .lecture-navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Квантум</h1>
+            <p class="tagline">Включаем свет в законах темноты</p>
+            <a href="https://t.me/@fizikapomojetbot" target="_blank" class="tg-button">📚 Бот-помощник по физике</a>
+        </div>
+    </header>
+
+    <!-- Кнопка назад -->
+    <div class="container back-container">
+        <a href="index.html" class="back-button">← Назад ко всем лекциям</a>
+    </div>
+
+    <!-- Контент лекции -->
+    <div class="container">
+        <div class="lecture-content">
+            <div class="lecture-header">
+                <h1>ТАЙНА ЭЛЕКТРИЧЕСКОГО ЗАРЯДА</h1>
+                <div class="lecture-subtitle">От Кулона до суперпозиции</div>
+            </div>
+
+            <div class="lecture-image">
+                ⚡
+            </div>
+
+            <div class="lecture-text">
+                <h2>Электрическое поле. Электрические заряды.</h2>
+                
+                <!-- ВИДЕО ДЛЯ ЛЕКЦИИ 1 -->
+                <div style="margin: 30px 0 40px 0; text-align: center; background: #f8f9fa; padding: 25px; border-radius: 12px; border-left: 4px solid #0A2463;">
+                    <h3 style="color: #0A2463; margin-bottom: 15px; font-size: 18px;">
+                         Сводка
+                    </h3>
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <video 
+                            controls 
+                            style="width: 100%; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);"
+                        >
+                            <source src="https://www.dropbox.com/scl/fi/mj7cliih1lwp1t12xzqc1/video16.mp4?rlkey=36mqavs7xplgkkwjzklur7uy8&st=zmvfhh9t&dl=1" type="video/mp4">
+                            Ваш браузер не поддерживает видео. Попробуйте обновить его или <a href="https://www.dropbox.com/scl/fi/mj7cliih1lwp1t12xzqc1/video16.mp4?rlkey=36mqavs7xplgkkwjzklur7uy8&st=zmvfhh9t&dl=1">скачайте видео</a>.
+                        </video>
+                        <div style="margin-top: 15px; display: flex; justify-content: space-between; font-size: 14px; color: #666;">
+                            <span>📁 Название: Электрическое поле</span>         
+                        </div>
+                    </div>
+                </div>
+                
+                <p><strong>Электродинамика</strong> -- раздел физики, который изучает электромагнитное взаимодействие заряженных частиц.</p>
+                
+                <p><strong>Электростатика</strong> -- раздел электродинамики, который изучает взаимодействие неподвижных электрических зарядов.</p>
+                
+                <p><strong>Электрический заряд</strong> -- физическая величина, характеризующая свойство частиц или тел вступать в электромагнитные силовые взаимодействия.</p>
+                
+                <div class="formula-box">
+                    <p>[q] = [Кл] = [А·с]</p>
+                </div>
+                
+                <h3>Свойства электрических зарядов:</h3>
+                <ol>
+                    <li>Существует два рода электрических заряда: положительные и отрицательные.</li>
+                    <li>Одноименные заряды отталкиваются, а разноименные притягиваются.</li>
+                    <li>Заряды могут передаваться от одного тела к другому при непосредственном соприкосновении.</li>
+                </ol>
+                
+                <h3>Закон сохранения электрического заряда:</h3>
+                <p>«В замкнутой системе алгебраическая сумма зарядов всех частиц остается постоянной (неизменной)».</p>
+                
+                <h3>Закон Кулона (1785 г):</h3>
+                <p>Сила взаимодействия между двумя точечными неподвижными зарядами, находящимися в вакууме прямо пропорциональна произведению модулей зарядов и обратно пропорциональна квадрату расстояния между ними.</p>
+                
+                <div class="formula-box">
+                    <p>F = k · |q₁·q₂| / r²</p>
+                </div>
+                
+                <p><strong>k</strong> - коэффициент пропорциональности (в вакууме).</p>
+                
+                <p><strong>Точечный заряд</strong> -- заряженное тело, размер которого намного меньше расстояния его возможного действия на другие тела.</p>
+                
+                <p>Заряд электрона принято считать элементарным электрическим зарядом.</p>
+                
+                <p>Часто делают замену: k = 1/(4πε₀).</p>
+                
+                <div class="formula-box">
+                    <p>ε₀ = 1/(4πk) = 8,85×10⁻¹² Кл²/(Н·м²)</p>
+                </div>
+                
+                <p>Величина ε₀ называется <strong>электрической постоянной</strong>.</p>
+                
+                <h3>Напряженность электрического поля</h3>
+                <p>Электрическое поле имеет свойство действовать на заряженные тела, поэтому в любой точке его можно исследовать с помощью «пробного заряда» -- точечного положительного заряда, значительно меньшего, чем заряд, который создает исследуемое поле.</p>
+                
+                <p>Отношение силы, с которой поле в данной точке действует на пробный заряд, к значению этого заряда называется <strong>напряженностью электрического поля</strong> в данной точке:</p>
+                
+                <div class="formula-box">
+                    <p>E = F/q</p>
+                </div>
+                
+                <h3>Принцип суперпозиции:</h3>
+                <p>Если в данной точке пространства различные заряженные частицы создают магнитное поле, напряженности которых E₁, E₂, E₃ и т.д., то равнодействующая напряженность в этой точке равна:</p>
+                
+                <div class="formula-box">
+                    <p>E = E₁ + E₂ + E₃ + ... + Eₙ</p>
+                </div>
+                
+                <p>Помещая пробный заряд в разные точки поля, проводят линии напряженности. Если они прямые, то вектор E направлен вдоль них, а если кривые - вдоль касательных к ним. Густота линий напряженности численно равняется (или пропорциональна) значению напряженности.</p>
+                
+                <p>Линии напряженности электростатического поля (силовые линии) незамкнутые: начинаются на положительных зарядах, а заканчиваются на отрицательных; они непрерывные и не пересекаются.</p>
+                
+                <div class="formula-box">
+                    <p>Напряженность поля точечного заряда: E = k·q₀/r²</p>
+                </div>
+                
+                <!-- БЛОК ПРОФЕССИЙ ДЛЯ ЛЕКЦИЙ -->
+                <section class="profession-block" style="margin: 60px 0; padding: 30px; background: linear-gradient(to right, #0A2463, #1a3a8f); border-radius: 12px; color: white; border-left: 5px solid #FFE066;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="font-size: 32px; margin-right: 15px;">⚡</div>
+                        <h2 style="margin: 0; color: #FFE066; font-size: 22px;">
+                            Знания в профессии железнодорожника
+             </h2>
+                    </div>
+                    <p style="margin: 0; line-height: 1.6; font-size: 16px;">
+                        Знание природы электрического заряда и закона взаимодействия зарядов - это основа для работы 
+                        <strong>электромонтёра контактной сети</strong>. Он применяет эти принципы на практике, чтобы понимать, 
+                        как возникают опасные статические заряды на изоляторах высоковольтных линий, и предотвращать их. 
+                        Также эти знания необходимы <strong>инженеру-электрику</strong> при проектировании и обслуживании 
+                        оборудования в депо, где важно рассчитать безопасные расстояния между заряженными элементами 
+                        и обеспечить их надёжную изоляцию.
+                    </p>
+                </section>
+            </div>
+        </div>
+
+        <!-- ПРАКТИЧЕСКИЕ ЗАДАЧИ -->
+        <div class="practice-tasks">
+            <div class="tasks-container">
+                <header class="tasks-header">
+                    <h1>⚡ Практические задачи по электростатике</h1>
+                    <p>Сила Кулона и напряжённость электрического поля</p>
+                </header>
+
+                <div class="tasks-content">
+                    <!-- Выбор задачи -->
+                    <div class="task-selector">
+                        <button class="task-btn active" onclick="showTask(1)">Задача 1</button>
+                        <button class="task-btn" onclick="showTask(2)">Задача 2</button>
+                        <button class="task-btn" onclick="showTask(3)">Задача 3</button>
+                    </div>
+
+                    <!-- Задача 1 -->
+                    <div class="task-section" id="task1">
+                        <div class="task-title">
+                            <div class="task-number">1</div>
+                            <span>Сила взаимодействия точечных зарядов</span>
+                        </div>
+                        
+                        <div class="task-text">
+                            Два точечных заряда находятся на заданном расстоянии друг от друга.
+                        </div>
+                        
+                        <div class="task-data">
+                            <div>q₁ = 2×10⁻⁶ Кл</div>
+                            <div>q₂ = 3×10⁻⁶ Кл</div>
+                            <div>r = 0.1 м</div>
+                            <div>k = 9×10⁹ Н·м²/Кл²</div>
+                        </div>
+                        
+                        <div class="task-text">
+                            <strong>Вопрос:</strong> Чему равна сила взаимодействия между зарядами?
+                        </div>
+                    </div>
+
+                    <!-- Задача 2 -->
+                    <div class="task-section" id="task2" style="display: none;">
+                        <div class="task-title">
+                            <div class="task-number">2</div>
+                            <span>Напряжённость поля точечного заряда</span>
+                        </div>
+                        
+                        <div class="task-data">
+                            <div>q = 5×10⁻⁹ Кл</div>
+                            <div>r = 0.2 м</div>
+                            <div>k = 9×10⁹ Н·м²/Кл²</div>
+                        </div>
+                        
+                        <div class="task-text">
+                            <strong>Вопрос:</strong> Рассчитайте напряжённость электрического поля на заданном расстоянии от заряда.
+                        </div>
+                    </div>
+
+                    <!-- Задача 3 -->
+                    <div class="task-section" id="task3" style="display: none;">
+                        <div class="task-title">
+                            <div class="task-number">3</div>
+                            <span>Сила отталкивания одинаковых зарядов</span>
+                        </div>
+                        
+                        <div class="task-data">
+                            <div>q₁ = q₂ = 1×10⁻⁶ Кл</div>
+                            <div>r = 0.2 м</div>
+                            <div>k = 9×10⁹ Н·м²/Кл²</div>
+                        </div>
+                        
+                        <div class="task-text">
+                            <strong>Вопрос:</strong> Найдите силу отталкивания между двумя одинаковыми зарядами.
+                        </div>
+                    </div>
+
+                    <!-- Ввод ответа -->
+                    <section class="input-section">
+                        <label class="input-label">Введите ваш ответ:</label>
+                        <div class="input-with-unit">
+                            <input type="number" step="0.001" class="answer-input" id="userAnswer" placeholder="Числовое значение">
+                            <span class="unit" id="answerUnit">Н</span>
+                        </div>
+
+                        <div class="buttons">
+                            <button class="btn btn-check" onclick="checkAnswer()">✅ Проверить</button>
+                            <button class="btn btn-hint" onclick="showHint()">💡 Подсказка</button>
+                        </div>
+                    </section>
+
+                    <!-- Подсказка -->
+                    <div class="hint-box" id="hintBox">
+                        <strong>Подсказка:</strong> Закон Кулона: F = k × |q₁ × q₂| / r²
+                    </div>
+
+                    <!-- Результат проверки -->
+                    <div class="feedback" id="feedback"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 Квантум. Образовательный проект по физике.</p>
+            <p>Материалы предназначены для образовательных целей.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Данные задач
+        const tasks = [
+            { 
+                answer: 5.4, // 5.4 Н
+                unit: "Н", 
+                hint: "Закон Кулона: F = k × |q₁ × q₂| / r² = (9×10⁹ × 2×10⁻⁶ × 3×10⁻⁶) / (0.1)²",
+                answerText: "5.4 Н",
+                explanation: "F = (9×10⁹ × 6×10⁻¹²) / 0.01 = (54×10⁻³) / 0.01 = 5.4 Н"
+            },
+            { 
+                answer: 1125, // 1125 Н/Кл
+                unit: "Н/Кл", 
+                hint: "Напряжённость точечного заряда: E = k × |q| / r² = (9×10⁹ × 5×10⁻⁹) / (0.2)²",
+                answerText: "1125 Н/Кл",
+                explanation: "E = (45) / 0.04 = 1125 Н/Кл"
+            },
+            { 
+                answer: 0.225, // 0.225 Н
+                unit: "Н", 
+                hint: "F = k × q² / r² = (9×10⁹ × (1×10⁻⁶)²) / (0.2)²",
+                answerText: "0.225 Н",
+                explanation: "F = (9×10⁹ × 1×10⁻¹²) / 0.04 = (9×10⁻³) / 0.04 = 0.225 Н"
+            }
+        ];
+
+        let currentTask = 1;
+
+        // Переключение задач
+        function showTask(num) {
+            // Скрыть все задачи
+            document.getElementById('task1').style.display = 'none';
+            document.getElementById('task2').style.display = 'none';
+            document.getElementById('task3').style.display = 'none';
+            
+            // Показать нужную
+            document.getElementById('task' + num).style.display = 'block';
+            
+            // Обновить кнопки
+            document.querySelectorAll('.task-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === num - 1);
+            });
+            
+            // Обновить единицы и подсказку
+            document.getElementById('answerUnit').textContent = tasks[num - 1].unit;
+            document.getElementById('hintBox').innerHTML = `<strong>Подсказка:</strong> ${tasks[num - 1].hint}`;
+            document.getElementById('hintBox').style.display = 'none';
+            
+            currentTask = num;
+            
+            // Очистить поле и результат
+            document.getElementById('userAnswer').value = '';
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('userAnswer').focus();
+        }
+
+        // Проверка ответа
+        function checkAnswer() {
+            const input = document.getElementById('userAnswer');
+            const feedback = document.getElementById('feedback');
+            const value = parseFloat(input.value);
+            
+            if (!input.value) {
+                alert('Введите ответ!');
+                return;
+            }
+            
+            const task = tasks[currentTask - 1];
+            
+            // Допуск для проверки (1% от правильного ответа)
+            const tolerance = Math.abs(task.answer * 0.01);
+            const isCorrect = Math.abs(value - task.answer) <= tolerance;
+            
+            if (isCorrect) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = `
+                    <div class="feedback-title">✅ Верно!</div>
+                    <p>Правильный ответ: ${task.answerText}</p>
+                    <div class="formula">${task.explanation}</div>
+                    <p>Отличная работа!</p>
+                `;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `
+                    <div class="feedback-title">❌ Неверно</div>
+                    <p>Попробуйте ещё раз. Ваш ответ: ${value} ${task.unit}</p>
+                    <button class="btn btn-hint" onclick="showHint()" style="margin-top: 10px;">
+                        💡 Показать подробную подсказку
+                    </button>
+                `;
+            }
+            
+            feedback.style.display = 'block';
+            feedback.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Показать подсказку
+        function showHint() {
+            const hintBox = document.getElementById('hintBox');
+            hintBox.style.display = 'block';
+            hintBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Enter для проверки
+        document.getElementById('userAnswer').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkAnswer();
+        });
+
+        // При загрузке
+        window.onload = function() {
+            document.getElementById('userAnswer').focus();
+        };
+    </script>
+</body>
+</html>
+       
